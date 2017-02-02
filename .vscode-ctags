@@ -1,0 +1,268 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AUDIO_USE_LL_AS_PRIMARY_OUTPUT	BoardConfigCommon.mk	/^AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true$/;"	m
+AVDT_NUM_SEPS	bluetooth/bdroid_buildcfg.h	31;"	d
+BLE_VND_INCLUDED	bluetooth/bdroid_buildcfg.h	22;"	d
+BLUE_BLINK_FILE	liblight/lights.c	/^char const*const BLUE_BLINK_FILE$/;"	v
+BLUE_LED_FILE	liblight/lights.c	/^char const*const BLUE_LED_FILE$/;"	v
+BOARD_ANT_WIRELESS_DEVICE	BoardConfigCommon.mk	/^BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"$/;"	m
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR	BoardConfigCommon.mk	/^BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(VENDOR_PATH)\/bluetooth$/;"	m
+BOARD_BOOTIMAGE_PARTITION_SIZE	BoardConfigCommon.mk	/^BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864$/;"	m
+BOARD_CHARGER_DISABLE_INIT_BLANK	BoardConfigCommon.mk	/^BOARD_CHARGER_DISABLE_INIT_BLANK := true$/;"	m
+BOARD_FLASH_BLOCK_SIZE	BoardConfigCommon.mk	/^BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)$/;"	m
+BOARD_HAS_QCOM_WLAN	BoardConfigCommon.mk	/^BOARD_HAS_QCOM_WLAN := true$/;"	m
+BOARD_HAVE_BLUETOOTH_QCOM	BoardConfigCommon.mk	/^BOARD_HAVE_BLUETOOTH_QCOM := true$/;"	m
+BOARD_HAVE_QCOM_FM	BoardConfigCommon.mk	/^BOARD_HAVE_QCOM_FM := true$/;"	m
+BOARD_HOSTAPD_DRIVER	BoardConfigCommon.mk	/^BOARD_HOSTAPD_DRIVER := NL80211$/;"	m
+BOARD_HOSTAPD_PRIVATE_LIB	BoardConfigCommon.mk	/^BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn$/;"	m
+BOARD_KERNEL_BASE	BoardConfigCommon.mk	/^BOARD_KERNEL_BASE := 0x80000000$/;"	m
+BOARD_KERNEL_CMDLINE	BoardConfigCommon.mk	/^BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 androidboot.bootdevice=7824900.sdhci earlycon=msm_hsl_uart,0x78af000 loop.max_part=16 androidboot.usbconfigfs=true$/;"	m
+BOARD_KERNEL_IMAGE_NAME	BoardConfigCommon.mk	/^BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb$/;"	m
+BOARD_KERNEL_PAGESIZE	BoardConfigCommon.mk	/^BOARD_KERNEL_PAGESIZE :=  2048$/;"	m
+BOARD_MKBOOTIMG_ARGS	BoardConfigCommon.mk	/^BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100$/;"	m
+BOARD_PERSISTIMAGE_PARTITION_SIZE	BoardConfigCommon.mk	/^BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432$/;"	m
+BOARD_QTI_CAMERA_32BIT_ONLY	BoardConfigCommon.mk	/^BOARD_QTI_CAMERA_32BIT_ONLY := true$/;"	m
+BOARD_ROOT_EXTRA_SYMLINKS	BoardConfigCommon.mk	/^BOARD_ROOT_EXTRA_SYMLINKS := \\$/;"	m
+BOARD_SUPPORTS_SOUND_TRIGGER	BoardConfigCommon.mk	/^BOARD_SUPPORTS_SOUND_TRIGGER := true$/;"	m
+BOARD_SYSTEMIMAGE_PARTITION_SIZE	BoardConfigCommon.mk	/^BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3221225472$/;"	m
+BOARD_USES_ALSA_AUDIO	BoardConfigCommon.mk	/^BOARD_USES_ALSA_AUDIO := true$/;"	m
+BOARD_USES_QCOM_HARDWARE	BoardConfigCommon.mk	/^BOARD_USES_QCOM_HARDWARE := true$/;"	m
+BOARD_VENDOR	lineage.mk	/^BOARD_VENDOR := Xiaomi$/;"	m
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE	BoardConfigCommon.mk	/^BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)$/;"	m
+BOARD_WLAN_DEVICE	BoardConfigCommon.mk	/^BOARD_WLAN_DEVICE := qcwcn$/;"	m
+BOARD_WPA_SUPPLICANT_DRIVER	BoardConfigCommon.mk	/^BOARD_WPA_SUPPLICANT_DRIVER := NL80211$/;"	m
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB	BoardConfigCommon.mk	/^BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn$/;"	m
+BTIF_HF_WBS_PREFERRED	bluetooth/bdroid_buildcfg.h	26;"	d
+BTM_SCO_ENHANCED_SYNC_ENABLED	bluetooth/bdroid_buildcfg.h	29;"	d
+BUILD_BROKEN_DUP_RULES	BoardConfigCommon.mk	/^BUILD_BROKEN_DUP_RULES := true$/;"	m
+BUTTON_FILE	liblight/lights.c	/^char const*const BUTTON_FILE$/;"	v
+DEFAULT_LOW_PERSISTENCE_MODE_BRIGHTNESS	liblight/lights.c	38;"	d	file:
+DEVICE_FRAMEWORK_MANIFEST_FILE	BoardConfigCommon.mk	/^DEVICE_FRAMEWORK_MANIFEST_FILE := $(VENDOR_PATH)\/framework_manifest.xml$/;"	m
+DEVICE_MANIFEST_FILE	BoardConfigCommon.mk	/^DEVICE_MANIFEST_FILE := $(VENDOR_PATH)\/manifest.xml$/;"	m
+DEVICE_MATRIX_FILE	BoardConfigCommon.mk	/^DEVICE_MATRIX_FILE   := $(VENDOR_PATH)\/compatibility_matrix.xml$/;"	m
+DEXPREOPT_GENERATE_APEX_IMAGE	BoardConfigCommon.mk	/^DEXPREOPT_GENERATE_APEX_IMAGE := true$/;"	m
+DISABLE_RILD_OEM_HOOK	BoardConfigCommon.mk	/^DISABLE_RILD_OEM_HOOK := true$/;"	m
+DISPAPI_HANDLE	liblight/disp_color_apis.h	/^typedef uint64_t DISPAPI_HANDLE;$/;"	t
+DSP_MOUNT_POINT	Android.mk	/^DSP_MOUNT_POINT := $(TARGET_OUT_VENDOR)\/dsp$/;"	m
+FIRMWARE_MOUNT_POINT	Android.mk	/^FIRMWARE_MOUNT_POINT := $(TARGET_OUT_VENDOR)\/firmware_mnt$/;"	m
+GATT_MAX_PHY_CHANNEL	bluetooth/bdroid_buildcfg.h	23;"	d
+GREEN_BLINK_FILE	liblight/lights.c	/^char const*const GREEN_BLINK_FILE$/;"	v
+GREEN_LED_FILE	liblight/lights.c	/^char const*const GREEN_LED_FILE$/;"	v
+HAL_MODULE_INFO_SYM	liblight/lights.c	/^struct hw_module_t HAL_MODULE_INFO_SYM = {$/;"	v	typeref:struct:hw_module_t
+IMS_LIBS	Android.mk	/^IMS_LIBS := libimscamera_jni.so libimsmedia_jni.so$/;"	m
+IMS_SYMLINKS	Android.mk	/^IMS_SYMLINKS := $(addprefix $(TARGET_OUT_SYSTEM_EXT_APPS_PRIVILEGED)\/ims\/lib\/arm64\/,$(notdir $(IMS_LIBS)))$/;"	m
+KeyDisabler	touch/KeyDisabler.cpp	/^KeyDisabler::KeyDisabler() {$/;"	f	class:vendor::lineage::touch::V1_0::implementation::KeyDisabler
+KeyDisabler	touch/KeyDisabler.h	/^class KeyDisabler : public IKeyDisabler {$/;"	c	namespace:vendor::lineage::touch::V1_0::implementation
+LCD_FILE	liblight/lights.c	/^char const*const LCD_FILE$/;"	v
+LCD_FILE2	liblight/lights.c	/^char const*const LCD_FILE2$/;"	v
+LOCAL_CERTIFICATE	doze/Android.mk	/^LOCAL_CERTIFICATE := platform$/;"	m
+LOCAL_CFLAGS	liblight/Android.mk	/^LOCAL_CFLAGS := -DLOG_TAG=\\"qdlights\\"$/;"	m
+LOCAL_CLANG	liblight/Android.mk	/^LOCAL_CLANG  := true$/;"	m
+LOCAL_HEADER_LIBRARIES	liblight/Android.mk	/^LOCAL_HEADER_LIBRARIES := libhardware_headers$/;"	m
+LOCAL_MODULE	liblight/Android.mk	/^LOCAL_MODULE := lights.$(TARGET_BOARD_PLATFORM)$/;"	m
+LOCAL_MODULE	libshims/Android.mk	/^LOCAL_MODULE := libqmiservices_shim$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE	   := init.msm.usb.configfs.rc$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := fstab.qcom$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := init.qcom.early_boot.sh$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := init.qcom.post_boot.sh$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := init.qcom.rc$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := init.qcom.sh$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := init.qcom.usb.rc$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := init.target.rc$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE       := ueventd.qcom.rc$/;"	m
+LOCAL_MODULE	rootdir/Android.mk	/^LOCAL_MODULE := init.class_main.sh$/;"	m
+LOCAL_MODULE_CLASS	libshims/Android.mk	/^LOCAL_MODULE_CLASS := SHARED_LIBRARIES$/;"	m
+LOCAL_MODULE_CLASS	rootdir/Android.mk	/^LOCAL_MODULE_CLASS := ETC$/;"	m
+LOCAL_MODULE_PATH	rootdir/Android.mk	/^LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR)$/;"	m
+LOCAL_MODULE_PATH	rootdir/Android.mk	/^LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_ETC)$/;"	m
+LOCAL_MODULE_PATH	rootdir/Android.mk	/^LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_ETC)\/init\/hw$/;"	m
+LOCAL_MODULE_PATH	rootdir/Android.mk	/^LOCAL_MODULE_PATH  := $(TARGET_OUT_VENDOR_EXECUTABLES)$/;"	m
+LOCAL_MODULE_PATH	rootdir/Android.mk	/^LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR_EXECUTABLES)$/;"	m
+LOCAL_MODULE_RELATIVE_PATH	liblight/Android.mk	/^LOCAL_MODULE_RELATIVE_PATH := hw$/;"	m
+LOCAL_MODULE_STEM	rootdir/Android.mk	/^LOCAL_MODULE_STEM  := ueventd.rc$/;"	m
+LOCAL_MODULE_TAGS	doze/Android.mk	/^LOCAL_MODULE_TAGS := optional$/;"	m
+LOCAL_MODULE_TAGS	liblight/Android.mk	/^LOCAL_MODULE_TAGS := optional$/;"	m
+LOCAL_MODULE_TAGS	libshims/Android.mk	/^LOCAL_MODULE_TAGS := optional$/;"	m
+LOCAL_MODULE_TAGS	rootdir/Android.mk	/^LOCAL_MODULE_TAGS  := optional$/;"	m
+LOCAL_MODULE_TAGS	rootdir/Android.mk	/^LOCAL_MODULE_TAGS := optional$/;"	m
+LOCAL_PACKAGE_NAME	doze/Android.mk	/^LOCAL_PACKAGE_NAME := XiaomiDoze$/;"	m
+LOCAL_PATH	Android.mk	/^LOCAL_PATH := $(call my-dir)$/;"	m
+LOCAL_PATH	BoardConfig.mk	/^LOCAL_PATH := device\/xiaomi\/mido$/;"	m
+LOCAL_PATH	doze/Android.mk	/^LOCAL_PATH:= $(call my-dir)$/;"	m
+LOCAL_PATH	liblight/Android.mk	/^LOCAL_PATH:= $(call my-dir)$/;"	m
+LOCAL_PATH	libshims/Android.mk	/^LOCAL_PATH := $(call my-dir)$/;"	m
+LOCAL_PATH	rootdir/Android.mk	/^LOCAL_PATH := $(call my-dir)$/;"	m
+LOCAL_PRIVATE_PLATFORM_APIS	doze/Android.mk	/^LOCAL_PRIVATE_PLATFORM_APIS := true$/;"	m
+LOCAL_PRIVILEGED_MODULE	doze/Android.mk	/^LOCAL_PRIVILEGED_MODULE := true$/;"	m
+LOCAL_PROGUARD_FLAG_FILES	doze/Android.mk	/^LOCAL_PROGUARD_FLAG_FILES := proguard.flags$/;"	m
+LOCAL_RESOURCE_DIR	doze/Android.mk	/^LOCAL_RESOURCE_DIR := \\$/;"	m
+LOCAL_SHARED_LIBRARIES	liblight/Android.mk	/^LOCAL_SHARED_LIBRARIES := liblog libcutils$/;"	m
+LOCAL_SHARED_LIBRARIES	libshims/Android.mk	/^LOCAL_SHARED_LIBRARIES := libqmiservices libbase$/;"	m
+LOCAL_SRC_FILES	doze/Android.mk	/^LOCAL_SRC_FILES := $(call all-java-files-under, src)$/;"	m
+LOCAL_SRC_FILES	liblight/Android.mk	/^LOCAL_SRC_FILES := lights.c$/;"	m
+LOCAL_SRC_FILES	libshims/Android.mk	/^LOCAL_SRC_FILES := \\$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/fstab.qcom$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.msm.usb.configfs.rc$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.qcom.early_boot.sh$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.qcom.post_boot.sh$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.qcom.rc$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.qcom.sh$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.qcom.usb.rc$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/init.target.rc$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES    := etc\/ueventd.qcom.rc$/;"	m
+LOCAL_SRC_FILES	rootdir/Android.mk	/^LOCAL_SRC_FILES := etc\/init.class_main.sh$/;"	m
+LOCAL_STATIC_ANDROID_LIBRARIES	doze/Android.mk	/^LOCAL_STATIC_ANDROID_LIBRARIES := \\$/;"	m
+LOCAL_USE_AAPT2	doze/Android.mk	/^LOCAL_USE_AAPT2 := true$/;"	m
+LOCAL_VENDOR_MODULE	liblight/Android.mk	/^LOCAL_VENDOR_MODULE := true$/;"	m
+LOCAL_VENDOR_MODULE	libshims/Android.mk	/^LOCAL_VENDOR_MODULE := true$/;"	m
+LOG_TAG	libshims/libqmiservices_shim.cpp	1;"	d	file:
+LOG_TAG	touch/service.cpp	17;"	d	file:
+MAX_ACL_CONNECTIONS	bluetooth/bdroid_buildcfg.h	20;"	d
+MAX_L2CAP_CHANNELS	bluetooth/bdroid_buildcfg.h	21;"	d
+PERSISTENCE_FILE	liblight/lights.c	/^char const*const PERSISTENCE_FILE$/;"	v
+PRODUCT_AAPT_CONFIG	device.mk	/^PRODUCT_AAPT_CONFIG := normal$/;"	m
+PRODUCT_AAPT_CONFIG	msm8953.mk	/^PRODUCT_AAPT_CONFIG := normal$/;"	m
+PRODUCT_AAPT_PREF_CONFIG	device.mk	/^PRODUCT_AAPT_PREF_CONFIG := xhdpi$/;"	m
+PRODUCT_AAPT_PREF_CONFIG	msm8953.mk	/^PRODUCT_AAPT_PREF_CONFIG := xxhdpi$/;"	m
+PRODUCT_BRAND	full_mido.mk	/^PRODUCT_BRAND := Xiaomi$/;"	m
+PRODUCT_DEVICE	full_mido.mk	/^PRODUCT_DEVICE := mido$/;"	m
+PRODUCT_ENFORCE_RRO_TARGETS	msm8953.mk	/^PRODUCT_ENFORCE_RRO_TARGETS := *$/;"	m
+PRODUCT_GMS_CLIENTID_BASE	lineage.mk	/^PRODUCT_GMS_CLIENTID_BASE := android-xiaomi$/;"	m
+PRODUCT_MANUFACTURER	full_mido.mk	/^PRODUCT_MANUFACTURER := Xiaomi$/;"	m
+PRODUCT_MODEL	full_mido.mk	/^PRODUCT_MODEL := Redmi Note 4$/;"	m
+PRODUCT_NAME	full_mido.mk	/^PRODUCT_NAME := full_mido$/;"	m
+PRODUCT_NAME	lineage.mk	/^PRODUCT_NAME := lineage_mido$/;"	m
+RED_BLINK_FILE	liblight/lights.c	/^char const*const RED_BLINK_FILE$/;"	v
+RED_LED_FILE	liblight/lights.c	/^char const*const RED_LED_FILE$/;"	v
+RFS_MSM_ADSP_SYMLINKS	Android.mk	/^RFS_MSM_ADSP_SYMLINKS := $(TARGET_OUT_VENDOR)\/rfs\/msm\/adsp\/$/;"	m
+RFS_MSM_MPSS_SYMLINKS	Android.mk	/^RFS_MSM_MPSS_SYMLINKS := $(TARGET_OUT_VENDOR)\/rfs\/msm\/mpss\/$/;"	m
+RFS_MSM_SLPI_SYMLINKS	Android.mk	/^RFS_MSM_SLPI_SYMLINKS := $(TARGET_OUT_VENDOR)\/rfs\/msm\/slpi\/$/;"	m
+TARGET_2ND_ARCH	BoardConfig.mk	/^TARGET_2ND_ARCH := arm$/;"	m
+TARGET_2ND_ARCH	BoardConfigCommon.mk	/^TARGET_2ND_ARCH := arm$/;"	m
+TARGET_2ND_ARCH_VARIANT	BoardConfig.mk	/^TARGET_2ND_ARCH_VARIANT := armv7-a-neon$/;"	m
+TARGET_2ND_ARCH_VARIANT	BoardConfigCommon.mk	/^TARGET_2ND_ARCH_VARIANT := armv8-a$/;"	m
+TARGET_2ND_CPU_ABI	BoardConfig.mk	/^TARGET_2ND_CPU_ABI := armeabi-v7a$/;"	m
+TARGET_2ND_CPU_ABI	BoardConfigCommon.mk	/^TARGET_2ND_CPU_ABI := armeabi-v7a$/;"	m
+TARGET_2ND_CPU_ABI2	BoardConfig.mk	/^TARGET_2ND_CPU_ABI2 := armeabi$/;"	m
+TARGET_2ND_CPU_ABI2	BoardConfigCommon.mk	/^TARGET_2ND_CPU_ABI2 := armeabi$/;"	m
+TARGET_2ND_CPU_VARIANT	BoardConfig.mk	/^TARGET_2ND_CPU_VARIANT := cortex-a53$/;"	m
+TARGET_2ND_CPU_VARIANT	BoardConfigCommon.mk	/^TARGET_2ND_CPU_VARIANT := generic$/;"	m
+TARGET_2ND_CPU_VARIANT_RUNTIME	BoardConfigCommon.mk	/^TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53$/;"	m
+TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS	BoardConfigCommon.mk	/^TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS :=  0x2000$/;"	m
+TARGET_ARCH	BoardConfig.mk	/^TARGET_ARCH := arm64$/;"	m
+TARGET_ARCH	BoardConfigCommon.mk	/^TARGET_ARCH := arm64$/;"	m
+TARGET_ARCH_VARIANT	BoardConfig.mk	/^TARGET_ARCH_VARIANT := armv8-a$/;"	m
+TARGET_ARCH_VARIANT	BoardConfigCommon.mk	/^TARGET_ARCH_VARIANT := armv8-a$/;"	m
+TARGET_BOARD_PLATFORM	BoardConfig.mk	/^TARGET_BOARD_PLATFORM := msm8953$/;"	m
+TARGET_BOARD_PLATFORM	BoardConfigCommon.mk	/^TARGET_BOARD_PLATFORM := msm8953$/;"	m
+TARGET_BOARD_PLATFORM_GPU	BoardConfig.mk	/^TARGET_BOARD_PLATFORM_GPU := qcom-adreno506$/;"	m
+TARGET_BOARD_SUFFIX	BoardConfig.mk	/^TARGET_BOARD_SUFFIX := _64$/;"	m
+TARGET_BOARD_SUFFIX	BoardConfigCommon.mk	/^TARGET_BOARD_SUFFIX := _64$/;"	m
+TARGET_BOOTLOADER_BOARD_NAME	BoardConfig.mk	/^TARGET_BOOTLOADER_BOARD_NAME := MSM8953$/;"	m
+TARGET_BOOTLOADER_BOARD_NAME	BoardConfigCommon.mk	/^TARGET_BOOTLOADER_BOARD_NAME := MSM8953$/;"	m
+TARGET_CPU_ABI	BoardConfig.mk	/^TARGET_CPU_ABI := arm64-v8a$/;"	m
+TARGET_CPU_ABI	BoardConfigCommon.mk	/^TARGET_CPU_ABI := arm64-v8a$/;"	m
+TARGET_CPU_ABI2	BoardConfig.mk	/^TARGET_CPU_ABI2 :=$/;"	m
+TARGET_CPU_ABI2	BoardConfigCommon.mk	/^TARGET_CPU_ABI2 :=$/;"	m
+TARGET_CPU_VARIANT	BoardConfig.mk	/^TARGET_CPU_VARIANT := generic$/;"	m
+TARGET_CPU_VARIANT	BoardConfigCommon.mk	/^TARGET_CPU_VARIANT := generic$/;"	m
+TARGET_CPU_VARIANT_RUNTIME	BoardConfigCommon.mk	/^TARGET_CPU_VARIANT_RUNTIME := cortex-a53$/;"	m
+TARGET_ENABLE_MEDIADRM_64	BoardConfigCommon.mk	/^TARGET_ENABLE_MEDIADRM_64 := true$/;"	m
+TARGET_FS_CONFIG_GEN	BoardConfigCommon.mk	/^TARGET_FS_CONFIG_GEN := $(VENDOR_PATH)\/config.fs$/;"	m
+TARGET_HW_DISK_ENCRYPTION	BoardConfigCommon.mk	/^TARGET_HW_DISK_ENCRYPTION := true$/;"	m
+TARGET_INIT_VENDOR_LIB	BoardConfigCommon.mk	/^TARGET_INIT_VENDOR_LIB := \/\/$(VENDOR_PATH):libinit_msm8953$/;"	m
+TARGET_KERNEL_CLANG_COMPILE	BoardConfigCommon.mk	/^TARGET_KERNEL_CLANG_COMPILE := true$/;"	m
+TARGET_KERNEL_SOURCE	BoardConfigCommon.mk	/^TARGET_KERNEL_SOURCE := kernel\/xiaomi\/msm8953$/;"	m
+TARGET_KERNEL_VERSION	BoardConfigCommon.mk	/^TARGET_KERNEL_VERSION := 4.9$/;"	m
+TARGET_NO_BOOTLOADER	BoardConfig.mk	/^TARGET_NO_BOOTLOADER := true$/;"	m
+TARGET_NO_BOOTLOADER	BoardConfigCommon.mk	/^TARGET_NO_BOOTLOADER := true$/;"	m
+TARGET_NO_RPC	BoardConfigCommon.mk	/^TARGET_NO_RPC := true$/;"	m
+TARGET_PER_MGR_ENABLED	BoardConfigCommon.mk	/^TARGET_PER_MGR_ENABLED := true$/;"	m
+TARGET_PROCESS_SDK_VERSION_OVERRIDE	BoardConfigCommon.mk	/^TARGET_PROCESS_SDK_VERSION_OVERRIDE := \\$/;"	m
+TARGET_PROVIDES_LIBLIGHT	BoardConfigCommon.mk	/^TARGET_PROVIDES_LIBLIGHT := true$/;"	m
+TARGET_RECOVERY_DEVICE_MODULES	BoardConfigCommon.mk	/^TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8953$/;"	m
+TARGET_RECOVERY_FSTAB	BoardConfigCommon.mk	/^TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)\/rootdir\/etc\/fstab.recovery.qcom$/;"	m
+TARGET_SCREEN_DENSITY	BoardConfigCommon.mk	/^TARGET_SCREEN_DENSITY := 420$/;"	m
+TARGET_SCREEN_HEIGHT	device.mk	/^TARGET_SCREEN_HEIGHT := 1920$/;"	m
+TARGET_SCREEN_HEIGHT	msm8953.mk	/^TARGET_SCREEN_HEIGHT := 1920$/;"	m
+TARGET_SCREEN_WIDTH	device.mk	/^TARGET_SCREEN_WIDTH := 1080$/;"	m
+TARGET_SCREEN_WIDTH	msm8953.mk	/^TARGET_SCREEN_WIDTH := 1080$/;"	m
+TARGET_SPECIFIC_HEADER_PATH	BoardConfig.mk	/^TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)\/include$/;"	m
+TARGET_SYSTEM_PROP	BoardConfigCommon.mk	/^TARGET_SYSTEM_PROP := $(VENDOR_PATH)\/system.prop$/;"	m
+TARGET_TS_MAKEUP	BoardConfigCommon.mk	/^TARGET_TS_MAKEUP := true$/;"	m
+TARGET_USERIMAGES_USE_EXT4	BoardConfigCommon.mk	/^TARGET_USERIMAGES_USE_EXT4 := true$/;"	m
+TARGET_USERIMAGES_USE_F2FS	BoardConfigCommon.mk	/^TARGET_USERIMAGES_USE_F2FS := true$/;"	m
+TARGET_USES_64_BIT_BINDER	BoardConfig.mk	/^TARGET_USES_64_BIT_BINDER := true$/;"	m
+TARGET_USES_GRALLOC1	BoardConfigCommon.mk	/^TARGET_USES_GRALLOC1 := true$/;"	m
+TARGET_USES_HWC2	BoardConfigCommon.mk	/^TARGET_USES_HWC2 := true$/;"	m
+TARGET_USES_INTERACTION_BOOST	BoardConfigCommon.mk	/^TARGET_USES_INTERACTION_BOOST := true$/;"	m
+TARGET_USES_ION	BoardConfigCommon.mk	/^TARGET_USES_ION := true$/;"	m
+TARGET_USES_MEDIA_EXTENSIONS	BoardConfigCommon.mk	/^TARGET_USES_MEDIA_EXTENSIONS := true$/;"	m
+TARGET_USES_QTI_CAMERA_DEVICE	BoardConfigCommon.mk	/^TARGET_USES_QTI_CAMERA_DEVICE := true$/;"	m
+TARGET_VENDOR	full_mido.mk	/^TARGET_VENDOR := Xiaomi$/;"	m
+USE_CUSTOM_AUDIO_POLICY	BoardConfigCommon.mk	/^USE_CUSTOM_AUDIO_POLICY := 1$/;"	m
+USE_DEVICE_SPECIFIC_CAMERA	BoardConfigCommon.mk	/^USE_DEVICE_SPECIFIC_CAMERA := true$/;"	m
+USE_DEVICE_SPECIFIC_GPS	BoardConfigCommon.mk	/^USE_DEVICE_SPECIFIC_GPS := true$/;"	m
+USE_XML_AUDIO_POLICY_CONF	BoardConfigCommon.mk	/^USE_XML_AUDIO_POLICY_CONF := 1$/;"	m
+V1_0	touch/KeyDisabler.cpp	/^namespace V1_0 {$/;"	n	namespace:vendor::lineage::touch	file:
+V1_0	touch/KeyDisabler.h	/^namespace V1_0 {$/;"	n	namespace:vendor::lineage::touch
+VENDOR_LINEAGE_TOUCH_V1_0_KEYDISABLER_H	touch/KeyDisabler.h	18;"	d
+VENDOR_PATH	BoardConfigCommon.mk	/^VENDOR_PATH := device\/xiaomi\/msm8953-common$/;"	m
+VENDOR_SECURITY_PATCH	BoardConfigCommon.mk	/^VENDOR_SECURITY_PATCH := 2020-09-05$/;"	m
+WCNSS_BIN_SYMLINK	Android.mk	/^WCNSS_BIN_SYMLINK := $(TARGET_OUT_VENDOR)\/firmware\/wlan\/prima\/WCNSS_qcom_wlan_nv.bin$/;"	m
+WCNSS_DAT_SYMLINK	Android.mk	/^WCNSS_DAT_SYMLINK := $(TARGET_OUT_VENDOR)\/firmware\/wlan\/prima\/WCNSS_wlan_dictionary.dat$/;"	m
+WCNSS_INI_SYMLINK	Android.mk	/^WCNSS_INI_SYMLINK := $(TARGET_OUT_VENDOR)\/firmware\/wlan\/prima\/WCNSS_qcom_cfg.ini$/;"	m
+WIFI_DRIVER_FW_PATH_AP	BoardConfigCommon.mk	/^WIFI_DRIVER_FW_PATH_AP := "ap"$/;"	m
+WIFI_DRIVER_FW_PATH_STA	BoardConfigCommon.mk	/^WIFI_DRIVER_FW_PATH_STA := "sta"$/;"	m
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY	BoardConfigCommon.mk	/^WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true$/;"	m
+WPA_SUPPLICANT_VERSION	BoardConfigCommon.mk	/^WPA_SUPPLICANT_VERSION := VER_0_8_X$/;"	m
+_BDROID_BUILDCFG_H	bluetooth/bdroid_buildcfg.h	18;"	d
+_REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_	init/init_msm8953.cpp	36;"	d	file:
+_ZN7android13GraphicBufferC1EjjijjP13native_handleb	libshims/GraphicBuffer.cpp	/^extern "C" void _ZN7android13GraphicBufferC1EjjijjP13native_handleb($/;"	f
+__DISP_COLOR_APIS_H__	liblight/disp_color_apis.h	2;"	d
+check_device	init/init_msm8953.cpp	/^void check_device()$/;"	f
+close_lights	liblight/lights.c	/^close_lights(struct light_device_t *dev)$/;"	f	file:
+dms_get_service_object_shimshim_v01	libshims/libqmiservices_shim.cpp	/^extern "C" void* dms_get_service_object_shimshim_v01(int, int, int) {$/;"	f
+g_attention	liblight/lights.c	/^static int g_attention = 0;$/;"	v	file:
+g_battery	liblight/lights.c	/^static struct light_state_t g_battery;$/;"	v	typeref:struct:light_state_t	file:
+g_init	liblight/lights.c	/^static pthread_once_t g_init = PTHREAD_ONCE_INIT;$/;"	v	file:
+g_last_backlight_mode	liblight/lights.c	/^static int g_last_backlight_mode = BRIGHTNESS_MODE_USER;$/;"	v	file:
+g_lock	liblight/lights.c	/^static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;$/;"	v	file:
+g_notification	liblight/lights.c	/^static struct light_state_t g_notification;$/;"	v	typeref:struct:light_state_t	file:
+handle_speaker_battery_locked	liblight/lights.c	/^handle_speaker_battery_locked(struct light_device_t* dev)$/;"	f	file:
+heapmaxfree	init/init_msm8953.cpp	/^char const *heapmaxfree;$/;"	v
+heapminfree	init/init_msm8953.cpp	/^char const *heapminfree;$/;"	v
+heaptargetutilization	init/init_msm8953.cpp	/^char const *heaptargetutilization;$/;"	v
+implementation	touch/KeyDisabler.cpp	/^namespace implementation {$/;"	n	namespace:vendor::lineage::touch::V1_0	file:
+implementation	touch/KeyDisabler.h	/^namespace implementation {$/;"	n	namespace:vendor::lineage::touch::V1_0
+init_globals	liblight/lights.c	/^void init_globals(void)$/;"	f
+isEnabled	touch/KeyDisabler.cpp	/^Return<bool> KeyDisabler::isEnabled() {$/;"	f	class:vendor::lineage::touch::V1_0::implementation::KeyDisabler
+is_lit	liblight/lights.c	/^is_lit(struct light_state_t const* state)$/;"	f	file:
+kControlPath	touch/KeyDisabler.cpp	/^constexpr const char kControlPath[] = "\/proc\/touchpanel\/capacitive_keys_disable";$/;"	m	namespace:vendor::lineage::touch::V1_0::implementation	file:
+lights_module_methods	liblight/lights.c	/^static struct hw_module_methods_t lights_module_methods = {$/;"	v	typeref:struct:hw_module_methods_t	file:
+lineage	touch/KeyDisabler.cpp	/^namespace lineage {$/;"	n	namespace:vendor	file:
+lineage	touch/KeyDisabler.h	/^namespace lineage {$/;"	n	namespace:vendor
+mHasKeyDisabler	touch/KeyDisabler.h	/^    bool mHasKeyDisabler;$/;"	m	class:vendor::lineage::touch::V1_0::implementation::KeyDisabler
+main	touch/service.cpp	/^int main() {$/;"	f
+open_lights	liblight/lights.c	/^static int open_lights(const struct hw_module_t* module, char const* name,$/;"	f	file:
+override	touch/KeyDisabler.h	/^    Return<bool> isEnabled() override;$/;"	m	class:vendor::lineage::touch::V1_0::implementation::KeyDisabler
+override	touch/KeyDisabler.h	/^    Return<bool> setEnabled(bool enabled) override;$/;"	m	class:vendor::lineage::touch::V1_0::implementation::KeyDisabler
+property_override	init/init_msm8953.cpp	/^void property_override(char const prop[], char const value[], bool add = true)$/;"	f
+rgb_to_brightness	liblight/lights.c	/^rgb_to_brightness(struct light_state_t const* state)$/;"	f	file:
+setEnabled	touch/KeyDisabler.cpp	/^Return<bool> KeyDisabler::setEnabled(bool enabled) {$/;"	f	class:vendor::lineage::touch::V1_0::implementation::KeyDisabler
+set_light_attention	liblight/lights.c	/^set_light_attention(struct light_device_t* dev,$/;"	f	file:
+set_light_backlight	liblight/lights.c	/^set_light_backlight(struct light_device_t* dev,$/;"	f	file:
+set_light_battery	liblight/lights.c	/^set_light_battery(struct light_device_t* dev,$/;"	f	file:
+set_light_buttons	liblight/lights.c	/^set_light_buttons(struct light_device_t* dev,$/;"	f	file:
+set_light_notifications	liblight/lights.c	/^set_light_notifications(struct light_device_t* dev,$/;"	f	file:
+set_speaker_light_locked	liblight/lights.c	/^set_speaker_light_locked(struct light_device_t* dev,$/;"	f	file:
+touch	touch/KeyDisabler.cpp	/^namespace touch {$/;"	n	namespace:vendor::lineage	file:
+touch	touch/KeyDisabler.h	/^namespace touch {$/;"	n	namespace:vendor::lineage
+vendor	touch/KeyDisabler.cpp	/^namespace vendor {$/;"	n	file:
+vendor	touch/KeyDisabler.h	/^namespace vendor {$/;"	n
+vendor_load_properties	init/init_msm8953.cpp	/^void vendor_load_properties()$/;"	f
+write_int	liblight/lights.c	/^write_int(char const* path, int value)$/;"	f	file:

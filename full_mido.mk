@@ -14,12 +14,17 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-ifneq ($(filter mido,$(TARGET_DEVICE)),)
+# Inherit from mido device
+$(call inherit-product, device/xiaomi/mido/device.mk)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
-
-include $(CLEAR_VARS)
-
-endif
+# Device identifier. This must come after all inclusions
+TARGET_VENDOR := Xiaomi
+PRODUCT_DEVICE := mido
+PRODUCT_NAME := full_mido
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MODEL := Redmi Note 4
+PRODUCT_MANUFACTURER := Xiaomi

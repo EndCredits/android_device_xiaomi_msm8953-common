@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-LOCAL_PATH := $(call my-dir)
+$(call inherit-product, device/xiaomi/mido/full_mido.mk)
 
-ifneq ($(filter mido,$(TARGET_DEVICE)),)
+# Inherit some common LineageOS stuff.
+$(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
+PRODUCT_NAME := lineage_mido
+BOARD_VENDOR := Xiaomi
 
-include $(CLEAR_VARS)
-
-endif
+PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
