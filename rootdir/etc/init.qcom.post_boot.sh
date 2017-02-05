@@ -4829,8 +4829,6 @@ case "$target" in
         platform_subtype_id=`cat /sys/devices/soc0/platform_subtype_id`
     fi
 
-<<<<<<< HEAD
-=======
     case "$hw_platform" in
         "MTP" | "Surf" | "RCM" )
             # Start Host based Touch processing
@@ -4847,7 +4845,6 @@ case "$target" in
         ;;
     esac
 
->>>>>>> 238665f... mido: Update boot scripts from LA.UM.9.6.2.r1-02500-89xx.0
     echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
     configure_memory_parameters
     target_type=`getprop ro.hardware.type`
