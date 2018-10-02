@@ -1,5 +1,2 @@
-subdirs = [
-    "consumerir",
-    "light",
-    "usb",
-]
+soong_namespace {
+}
