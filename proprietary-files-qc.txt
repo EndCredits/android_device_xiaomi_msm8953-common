@@ -78,6 +78,10 @@ vendor/lib/vendor.qti.hardware.bluetooth_audio@2.0.so|94c983b85ba5bcb0902e18f334
 vendor/lib/vendor.qti.hardware.bluetooth_sar@1.0.so|0d3d5de154e6d40d99a9bbca4cb170dc02bc3902
 vendor/lib/vendor.qti.hardware.btconfigstore@1.0.so|81ac65e4317355abe11ee1ccc7d55f73d16ea69a
 
+# Bluetooth (aptX) - from crosshatch - PD1A.180720.030
+lib64/libaptX_encoder.so|0cebad28afcf29f931bdc2d24fce2730dc882ecf
+lib64/libaptXHD_encoder.so|90f47f10af28b3ead143200cb4370b847c513127
+
 # Camera firmware
 vendor/firmware/cpp_firmware_v1_8_0.fw
 vendor/firmware/cpp_firmware_v1_5_0.fw
