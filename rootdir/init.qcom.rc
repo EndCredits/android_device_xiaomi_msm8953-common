@@ -582,5 +582,4 @@ service time_daemon /system/vendor/bin/time_daemon
     writepid /dev/cpuset/system-background/tasks
 
 on property:dev.bootcomplete=1
-    swapon_all /vendor/etc/fstab.qcom
     setprop sys.io.scheduler "bfq"
