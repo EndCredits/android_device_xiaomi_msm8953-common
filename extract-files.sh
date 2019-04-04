@@ -126,7 +126,7 @@ patchelf --remove-needed libkeymaster_messages.so "$DEVICE_BLOB_ROOT"/vendor/lib
 
 fi
 
-if [ "$DEVICE" = "mido" ]; then
+if [ "$DEVICE" = "mido" ] || [ "$DEVICE" = "tiffany" ]; then
     # Hax for cam configs
     CAMERA2_SENSOR_MODULES="$LINEAGE_ROOT"/vendor/"$VENDOR"/"$DEVICE"/proprietary/vendor/lib/libmmcamera2_sensor_modules.so
     sed -i "s|/system/etc/camera/|/vendor/etc/camera/|g" "$CAMERA2_SENSOR_MODULES"
