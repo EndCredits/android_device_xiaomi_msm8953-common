@@ -582,7 +582,7 @@ service vendor.msm_irqbalance /vendor/bin/msm_irqbalance -f /system/vendor/etc/m
 
 on charger
     setprop persist.sys.usb.config mass_storage
-    start vendor.qcom-post-boot
+    start qcom-post-boot
 
 #Mixed HWC versions among targets
 on property:init.svc.surfaceflinger=restarting
