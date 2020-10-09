@@ -395,3 +395,5 @@ firmware_directories /vendor/firmware_mnt/image/
 # lirc
 /dev/lirc0                0660   system     system
 /dev/peel_ir              0660   system     system
+
+/sys/devices/platform/soc/ae00000.qcom,mdss_mdp power/control 0664 system graphics
