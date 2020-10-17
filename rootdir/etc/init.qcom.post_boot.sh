@@ -478,22 +478,48 @@ function sdm660_sched_interactive_dcvs() {
 
 function sdm660_sched_schedutil_dcvs() {
 
-    # configure governor settings for little cluster
-    echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-    echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
-    echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
-    echo 1401600 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
+    if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 19 ]; then
+        # configure governor settings for little cluster
+        echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
+        echo 1401600 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/pl
+        echo 633600 > /sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq
+        echo 902400 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/rtg_boost_freq
 
-    # configure governor settings for big cluster
-    echo "schedutil" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
-    echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/up_rate_limit_us
-    echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/down_rate_limit_us
-    echo 1401600 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_freq
+        # configure governor settings for big cluster
+        echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy4/scaling_governor
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/up_rate_limit_us
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/down_rate_limit_us
+        echo 1401600 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/hispeed_freq
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/pl
+        echo 1113600 > /sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq
+        echo 0 > /sys/devices/system/cpu/cpufreq/policy4/schedutil/rtg_boost_freq
+    else
+        # configure governor settings for little cluster
+        echo "schedutil" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+        echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us
+        echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us
+        echo 1401600 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
+
+        # configure governor settings for big cluster
+        echo "schedutil" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
+        echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/up_rate_limit_us
+        echo 0 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/down_rate_limit_us
+        echo 1401600 > /sys/devices/system/cpu/cpu4/cpufreq/schedutil/hispeed_freq
+    fi
 
     echo 1 > /proc/sys/kernel/sched_walt_rotate_big_tasks
 
-    echo "0:1401600" > /sys/module/cpu_boost/parameters/input_boost_freq
-    echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+    #if the kernel version >=4.19,set input_boost_freq accordingly
+    if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 19 ]; then
+        echo "0:1401600" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
+        echo 40 > /sys/devices/system/cpu/cpu_boost/input_boost_ms
+    else
+        echo "0:1401600" > /sys/module/cpu_boost/parameters/input_boost_freq
+        echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
+    fi
 
     # sched_load_boost as -6 is equivalent to target load as 85. It is per cpu tunable.
     echo -6 >  /sys/devices/system/cpu/cpu0/sched_load_boost
@@ -528,23 +554,36 @@ function sdm660_sched_schedutil_dcvs() {
             echo 1600 > $cpubw/bw_hwmon/idle_mbps
         done
 
-        for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-        do
-            echo "mem_latency" > $memlat/governor
-            echo 10 > $memlat/polling_interval
-            echo 400 > $memlat/mem_latency/ratio_ceil
-        done
+        if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -le 14 ]; then
+            for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
+            do
+                echo "mem_latency" > $memlat/governor
+                echo 10 > $memlat/polling_interval
+                echo 400 > $memlat/mem_latency/ratio_ceil
+            done
 
-        for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-        do
-            echo "compute" > $latfloor/governor
-            echo 10 > $latfloor/polling_interval
-        done
-
+            for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
+            do
+                echo "compute" > $latfloor/governor
+                echo 10 > $latfloor/polling_interval
+            done
+        fi
     done
+
+    if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 19 ]; then
+        # memlat specific settings are moved to seperate file under
+        # device/target specific folder
+        setprop vendor.dcvs.prop 1
+    fi
+
 }
 
 target=`getprop ro.board.platform`
+
+KernelVersionStr=`cat /proc/sys/kernel/osrelease`
+KernelVersionS=${KernelVersionStr:2:2}
+KernelVersionA=${KernelVersionStr:0:1}
+KernelVersionB=${KernelVersionS%.*}
 
 function configure_zram_parameters() {
     MemTotalStr=`cat /proc/meminfo | grep MemTotal`
@@ -733,7 +772,7 @@ else
 
         # Enable adaptive LMK for all targets &
         # use Google default LMK series for all 64-bit targets >=2GB.
-        echo 0 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
+        echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
 
         # Enable oom_reaper
         if [ -f /sys/module/lowmemorykiller/parameters/oom_reaper ]; then
@@ -759,7 +798,7 @@ else
               *)
                 #Set PPR parameters for all other targets.
                 echo $set_almk_ppr_adj > /sys/module/process_reclaim/parameters/min_score_adj
-                echo 0 > /sys/module/process_reclaim/parameters/enable_process_reclaim
+                echo 1 > /sys/module/process_reclaim/parameters/enable_process_reclaim
                 echo 50 > /sys/module/process_reclaim/parameters/pressure_min
                 echo 70 > /sys/module/process_reclaim/parameters/pressure_max
                 echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
@@ -770,23 +809,13 @@ else
     fi
 
     if [[ "$ProductName" == "bengal"* ]]; then
-        if [ -f /sys/devices/soc0/soc_id ]; then
-            soc_id=`cat /sys/devices/soc0/soc_id`
-        else
-            soc_id=`cat /sys/devices/system/soc/soc0/id`
-        fi
-        case "$soc_id" in
-            # Only for Scuba
-            "441")
-            #Set PPR nomap parameters for scuba target
-            echo 1 > /sys/module/process_reclaim/parameters/enable_process_reclaim
-            echo 50 > /sys/module/process_reclaim/parameters/pressure_min
-            echo 70 > /sys/module/process_reclaim/parameters/pressure_max
-            echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
-            echo 0 > /sys/module/process_reclaim/parameters/per_swap_size
-            echo 7680 > /sys/module/process_reclaim/parameters/tsk_nomap_swap_sz
-            ;;
-        esac
+        #Set PPR nomap parameters for bengal targets
+        echo 1 > /sys/module/process_reclaim/parameters/enable_process_reclaim
+        echo 50 > /sys/module/process_reclaim/parameters/pressure_min
+        echo 70 > /sys/module/process_reclaim/parameters/pressure_max
+        echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
+        echo 0 > /sys/module/process_reclaim/parameters/per_swap_size
+        echo 7680 > /sys/module/process_reclaim/parameters/tsk_nomap_swap_sz
     fi
 
     KernelVersionStr=`cat /proc/sys/kernel/osrelease`
@@ -2083,10 +2112,6 @@ case "$target" in
                 done
 
                 #if the kernel version >=4.9,use the schedutil governor
-                KernelVersionStr=`cat /proc/sys/kernel/osrelease`
-                KernelVersionS=${KernelVersionStr:2:2}
-                KernelVersionA=${KernelVersionStr:0:1}
-                KernelVersionB=${KernelVersionS%.*}
                 if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 9 ]; then
                     8953_sched_dcvs_eas
                 else
@@ -2350,10 +2375,6 @@ case "$target" in
                 # disable thermal core_control to update interactive gov settings
                 echo 0 > /sys/module/msm_thermal/core_control/enabled
 
-                KernelVersionStr=`cat /proc/sys/kernel/osrelease`
-                KernelVersionS=${KernelVersionStr:2:2}
-                KernelVersionA=${KernelVersionStr:0:1}
-                KernelVersionB=${KernelVersionS%.*}
                 if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 9 ]; then
                     8917_sched_dcvs_eas
                 else
@@ -2428,10 +2449,6 @@ case "$target" in
                 # disable thermal core_control to update interactive gov and core_ctl settings
                 echo 0 > /sys/module/msm_thermal/core_control/enabled
 
-                KernelVersionStr=`cat /proc/sys/kernel/osrelease`
-                KernelVersionS=${KernelVersionStr:2:2}
-                KernelVersionA=${KernelVersionStr:0:1}
-                KernelVersionB=${KernelVersionS%.*}
                 if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 9 ]; then
                     8937_sched_dcvs_eas
                 else
@@ -2658,12 +2675,14 @@ case "$target" in
             panel=${panel:2:4}
         fi
 
-        if [ $panel -gt 1080 ]; then
-            echo 2 > /proc/sys/kernel/sched_window_stats_policy
-            echo 5 > /proc/sys/kernel/sched_ravg_hist_size
-        else
-            echo 3 > /proc/sys/kernel/sched_window_stats_policy
-            echo 3 > /proc/sys/kernel/sched_ravg_hist_size
+        if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -le 14 ]; then
+            if [ $panel -gt 1080 ]; then
+                echo 2 > /proc/sys/kernel/sched_window_stats_policy
+                echo 5 > /proc/sys/kernel/sched_ravg_hist_size
+            else
+                echo 3 > /proc/sys/kernel/sched_window_stats_policy
+                echo 3 > /proc/sys/kernel/sched_ravg_hist_size
+            fi
         fi
         #Apply settings for sdm660, sdm636,sda636
         case "$soc_id" in
@@ -2687,10 +2706,6 @@ case "$target" in
             echo 0-3 > /dev/cpuset/system-background/cpus
 
             #if the kernel version >=4.14,use the schedutil governor
-            KernelVersionStr=`cat /proc/sys/kernel/osrelease`
-            KernelVersionS=${KernelVersionStr:2:2}
-            KernelVersionA=${KernelVersionStr:0:1}
-            KernelVersionB=${KernelVersionS%.*}
             if [ $KernelVersionA -ge 4 ] && [ $KernelVersionB -ge 14 ]; then
                 sdm660_sched_schedutil_dcvs
             else
@@ -3005,7 +3020,7 @@ case "$target" in
         fi
 
         case "$soc_id" in
-                 "394" | "467" | "468" )
+                 "394" )
 
             # Core control parameters on big
             echo 2 > /sys/devices/system/cpu/cpu4/core_ctl/min_cpus
@@ -3104,6 +3119,10 @@ case "$target" in
                 done
 
             done
+
+            # memlat specific settings are moved to seperate file under
+            # device/target specific folder
+            setprop vendor.dcvs.prop 1
 
             # colcoation v3 disabled
             echo 0 > /proc/sys/kernel/sched_min_task_util_for_boost
@@ -3232,32 +3251,12 @@ case "$target" in
 	      echo 1600 > $llccbw/bw_hwmon/idle_mbps
               echo 40 > $llccbw/polling_interval
 	  done
-
-	    #Enable mem_latency governor for L3, LLCC, and DDR scaling
-	  for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-	  do
-	      echo "mem_latency" > $memlat/governor
-	      echo 10 > $memlat/polling_interval
-	      echo 400 > $memlat/mem_latency/ratio_ceil
-          done
-
-          #Gold L3 ratio ceil
-          echo 4000 > /sys/class/devfreq/soc:qcom,cpu6-cpu-l3-lat/mem_latency/ratio_ceil
-
-          #Enable cdspl3 governor for L3 cdsp nodes
-          for l3cdsp in $device/*cdsp-cdsp-l3-lat/devfreq/*cdsp-cdsp-l3-lat
-          do
-              echo "cdspl3" > $l3cdsp/governor
-          done
-
-	  #Enable compute governor for gold latfloor
-	  for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-	  do
-	      echo "compute" > $latfloor/governor
-	      echo 10 > $latfloor/polling_interval
-	  done
-
       done
+
+      # memlat specific settings are moved to seperate file under
+      # device/target specific folder
+      setprop vendor.dcvs.prop 1
+
             # cpuset parameters
             echo 0-5 > /dev/cpuset/background/cpus
             echo 0-5 > /dev/cpuset/system-background/cpus
@@ -3370,32 +3369,11 @@ case "$target" in
                     echo 40 > $npubw/polling_interval
                     echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
                 done
-
-                #Enable mem_latency governor for L3, LLCC, and DDR scaling
-                for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-                do
-                    echo "mem_latency" > $memlat/governor
-                    echo 10 > $memlat/polling_interval
-                    echo 400 > $memlat/mem_latency/ratio_ceil
-                done
-
-                #Gold L3 ratio ceil
-                echo 4000 > /sys/class/devfreq/soc:qcom,cpu6-cpu-l3-lat/mem_latency/ratio_ceil
-
-                #Enable cdspl3 governor for L3 cdsp nodes
-                for l3cdsp in $device/*cdsp-cdsp-l3-lat/devfreq/*cdsp-cdsp-l3-lat
-                do
-                    echo "cdspl3" > $l3cdsp/governor
-                done
-
-                #Enable compute governor for gold latfloor
-                for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-                do
-                    echo "compute" > $latfloor/governor
-                    echo 10 > $latfloor/polling_interval
-                done
-
             done
+
+            # memlat specific settings are moved to seperate file under
+            # device/target specific folder
+            setprop vendor.dcvs.prop 1
 
             # cpuset parameters
                 echo 0-5 > /dev/cpuset/background/cpus
@@ -3422,7 +3400,7 @@ case "$target" in
     fi
 
     case "$soc_id" in
-        "400" | "440" )
+        "400" | "440" | "476" )
         # Core control parameters on silver
         echo 0 0 0 0 1 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
         echo 4 > /sys/devices/system/cpu/cpu0/core_ctl/min_cpus
@@ -3557,7 +3535,7 @@ case "$target" in
             done
 
             for npullccbw in $device/*npu*-llcc-bw/devfreq/*npu*-llcc-bw
-        do
+            do
                 echo 1 > /sys/devices/virtual/npu/msm_npu/pwr
                 echo "bw_hwmon" > $npullccbw/governor
                 echo "2288 4577 7110 9155 12298 14236 16265" > $npullccbw/bw_hwmon/mbps_zones
@@ -3570,49 +3548,12 @@ case "$target" in
                 echo 250 > $npullccbw/bw_hwmon/up_scale
                 echo 40 > $npullccbw/polling_interval
                 echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
-        done
-
-            #Enable mem_latency governor for L3, LLCC, and DDR scaling
-        for memlat in $device/*qcom,devfreq-l3/*cpu*-lat/devfreq/*cpu*-lat
-            do
-                echo "mem_latency" > $memlat/governor
-                echo 8 > $memlat/polling_interval
-                echo 400 > $memlat/mem_latency/ratio_ceil
-            done
-
-        #Enable cdspl3 governor for L3 cdsp nodes
-        for l3cdsp in $device/*qcom,devfreq-l3/*cdsp-l3-lat/devfreq/*cdsp-l3-lat
-        do
-                echo "cdspl3" > $l3cdsp/governor
-        done
-
-        #Enable mem_latency governor for LLCC and DDR scaling
-        for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-        do
-            echo "mem_latency" > $memlat/governor
-            echo 8 > $memlat/polling_interval
-            echo 400 > $memlat/mem_latency/ratio_ceil
-            done
-
-            #Gold L3 ratio ceil
-        for l3gold in $device/*qcom,devfreq-l3/*cpu6-cpu-l3-lat/devfreq/*cpu6-cpu-l3-lat
-            do
-                echo 4000 > $l3gold/mem_latency/ratio_ceil
-            done
-
-            #Prime L3 ratio ceil
-        for l3prime in $device/*qcom,devfreq-l3/*cpu7-cpu-l3-lat/devfreq/*cpu7-cpu-l3-lat
-            do
-                echo 4000 > $l3prime/mem_latency/ratio_ceil
-            done
-
-            #Enable compute governor for gold latfloor
-            for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-            do
-                echo "compute" > $latfloor/governor
-                echo 8 > $latfloor/polling_interval
             done
         done
+        # memlat specific settings are moved to seperate file under
+        # device/target specific folder
+        setprop vendor.dcvs.prop 0
+        setprop vendor.dcvs.prop 1
 
         # cpuset parameters
         echo 0-5 > /dev/cpuset/background/cpus
@@ -3649,6 +3590,7 @@ case "$target" in
         # default sched up and down migrate values are 95 and 85
         echo 65 > /proc/sys/kernel/sched_downmigrate
         echo 71 > /proc/sys/kernel/sched_upmigrate
+
         # default sched up and down migrate values are 100 and 95
         echo 85 > /proc/sys/kernel/sched_group_downmigrate
         echo 100 > /proc/sys/kernel/sched_group_upmigrate
@@ -3755,49 +3697,10 @@ case "$target" in
                 echo 40 > $npullccbw/polling_interval
                 echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
             done
-
-           #Enable mem_latency governor for L3 scaling
-            for memlat in $device/*qcom,devfreq-l3/*cpu*-lat/devfreq/*cpu*-lat
-            do
-                echo "mem_latency" > $memlat/governor
-                echo 8 > $memlat/polling_interval
-                echo 400 > $memlat/mem_latency/ratio_ceil
-            done
-
-            for gold_memlat in $device/*qcom,devfreq-l3/*cpu6*-lat/devfreq/*cpu6*-lat
-            do
-                echo 25000 > $gold_memlat/mem_latency/wb_filter_ratio
-                echo 60 > $gold_memlat/mem_latency/wb_pct_thres
-            done
-
-            #Enable mem_latency governor for LLCC, and DDR scaling
-            for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-            do
-                echo "mem_latency" > $memlat/governor
-                echo 8 > $memlat/polling_interval
-                echo 400 > $memlat/mem_latency/ratio_ceil
-            done
-
-            #Enable cdspl3 governor for L3 cdsp nodes
-            for l3cdsp in $device/*qcom,devfreq-l3/*cdsp-l3-lat/devfreq/*cdsp-l3-lat
-            do
-                echo "powersave" > $l3cdsp/governor
-            done
-
-            #Gold L3 ratio ceil
-            for l3gold in $device/*qcom,devfreq-l3/*cpu6-cpu-l3-lat/devfreq/*cpu6-cpu-l3-lat
-            do
-                echo 4000 > $l3gold/mem_latency/ratio_ceil
-            done
-
-            #Enable compute governor for gold latfloor
-            for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-            do
-                echo "compute" > $latfloor/governor
-                echo 8 > $latfloor/polling_interval
-            done
-
         done
+        # memlat specific settings are moved to seperate file under
+        # device/target specific folder
+        setprop vendor.dcvs.prop 1
 
         # cpuset parameters
         echo 0-5 > /dev/cpuset/background/cpus
@@ -3812,7 +3715,6 @@ case "$target" in
     esac
 esac
 
-
 case "$target" in
     "bengal")
 
@@ -3823,7 +3725,7 @@ case "$target" in
         fi
 
         case "$soc_id" in
-                 "417" | "420" | "444" | "445" | "469" | "470" )
+                 "417" | "420" | "444" | "445" )
 
             # Core control is temporarily disabled till bring up
             echo 0 > /sys/devices/system/cpu/cpu0/core_ctl/enable
@@ -3852,10 +3754,6 @@ case "$target" in
             echo 1305600 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_freq
             echo 614400 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
             echo 0 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/rtg_boost_freq
-
-            # configure input boost settings
-            echo "0:1017600" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
-            echo 80 > /sys/devices/system/cpu/cpu_boost/input_boost_ms
 
             # configure governor settings for big cluster
             echo "schedutil" > /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor
@@ -3915,20 +3813,10 @@ case "$target" in
                    echo 1600 > $cpubw/bw_hwmon/idle_mbps
                 done
 
-                for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-                do
-                    echo "mem_latency" > $memlat/governor
-                    echo 10 > $memlat/polling_interval
-                    echo 400 > $memlat/mem_latency/ratio_ceil
-                done
-
-                for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-                do
-                    echo "compute" > $latfloor/governor
-                    echo 10 > $latfloor/polling_interval
-                done
-
             done
+            # memlat specific settings are moved to seperate file under
+            # device/target specific folder
+            setprop vendor.dcvs.prop 1
 
             # colcoation v3 disabled
             echo 0 > /proc/sys/kernel/sched_min_task_util_for_boost
@@ -3960,16 +3848,11 @@ case "$target" in
 
             # sched_load_boost as -6 is equivalent to target load as 85.
             echo 0 > /proc/sys/kernel/sched_boost
-            echo 1 > /proc/sys/kernel/sched_prefer_spread
             echo -6 > /sys/devices/system/cpu/cpu0/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu1/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu2/sched_load_boost
             echo -6 > /sys/devices/system/cpu/cpu3/sched_load_boost
             echo 85 > /sys/devices/system/cpu/cpu0/cpufreq/schedutil/hispeed_load
-
-            # configure input boost settings
-            echo "0:1017600" > /sys/devices/system/cpu/cpu_boost/input_boost_freq
-            echo 80 > /sys/devices/system/cpu/cpu_boost/input_boost_ms
 
             # Set Memory parameters
             configure_memory_parameters
@@ -4021,16 +3904,13 @@ case "$target" in
                 done
             done
 
-            # Enable low power modes.
+            # Disable low power modes. Enable it after LPM stable
             echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
             ;;
         esac
 
     ;;
 esac
-
-
-
 
 
 #Apply settings for atoll
@@ -4076,9 +3956,6 @@ case "$target" in
     echo -6 >  /sys/devices/system/cpu/cpu6/sched_load_boost
     echo -6 >  /sys/devices/system/cpu/cpu7/sched_load_boost
     echo 85 > /sys/devices/system/cpu/cpu6/cpufreq/schedutil/hispeed_load
-
-    # Enable conservative pl
-    echo 1 > /proc/sys/kernel/sched_conservative_pl
 
     echo "0:1248000" > /sys/module/cpu_boost/parameters/input_boost_freq
     echo 40 > /sys/module/cpu_boost/parameters/input_boost_ms
@@ -4136,31 +4013,11 @@ case "$target" in
             echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
         done
 
-        #Enable mem_latency governor for L3, LLCC, and DDR scaling
-        for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-        do
-            echo "mem_latency" > $memlat/governor
-            echo 10 > $memlat/polling_interval
-            echo 400 > $memlat/mem_latency/ratio_ceil
-        done
-
-        #Enable cdspl3 governor for L3 cdsp nodes
-        for l3cdsp in $device/*cdsp-cdsp-l3-lat/devfreq/*cdsp-cdsp-l3-lat
-        do
-            echo "cdspl3" > $l3cdsp/governor
-        done
-
-        #Gold L3 ratio ceil
-        echo 4000 > /sys/class/devfreq/soc:qcom,cpu6-cpu-l3-lat/mem_latency/ratio_ceil
-
-        #Enable compute governor for gold latfloor
-        for latfloor in $device/*cpu*-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-        do
-            echo "compute" > $latfloor/governor
-            echo 10 > $latfloor/polling_interval
-        done
-
     done
+
+    # memlat specific settings are moved to seperate file under
+    # device/target specific folder
+    setprop vendor.dcvs.prop 1
 
     # cpuset parameters
     echo 0-5 > /dev/cpuset/background/cpus
@@ -4204,7 +4061,6 @@ case "$target" in
             "347" )
 
       # Core control parameters on silver
-      echo 0 0 0 0 1 1 > /sys/devices/system/cpu/cpu0/core_ctl/not_preferred
       echo 4 > /sys/devices/system/cpu/cpu0/core_ctl/min_cpus
       echo 60 > /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres
       echo 40 > /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres
@@ -4954,40 +4810,11 @@ case "$target" in
                 echo 40 > $npubw/polling_interval
 		echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
 	    done
-
-	    #Enable mem_latency governor for L3, LLCC, and DDR scaling
-	    for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-	    do
-		echo "mem_latency" > $memlat/governor
-		echo 10 > $memlat/polling_interval
-		echo 400 > $memlat/mem_latency/ratio_ceil
-	    done
-
-	    #Enable userspace governor for L3 cdsp nodes
-	    for l3cdsp in $device/*cdsp-cdsp-l3-lat/devfreq/*cdsp-cdsp-l3-lat
-	    do
-		echo "cdspl3" > $l3cdsp/governor
-	    done
-
-	    #Enable compute governor for gold latfloor
-	    for latfloor in $device/*cpu-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-	    do
-		echo "compute" > $latfloor/governor
-		echo 10 > $latfloor/polling_interval
-	    done
-
-	    #Gold L3 ratio ceil
-	    for l3gold in $device/*cpu4-cpu-l3-lat/devfreq/*cpu4-cpu-l3-lat
-	    do
-		echo 4000 > $l3gold/mem_latency/ratio_ceil
-	    done
-
-	    #Prime L3 ratio ceil
-	    for l3prime in $device/*cpu7-cpu-l3-lat/devfreq/*cpu7-cpu-l3-lat
-	    do
-		echo 20000 > $l3prime/mem_latency/ratio_ceil
-	    done
 	done
+
+    # memlat specific settings are moved to seperate file under
+    # device/target specific folder
+    setprop vendor.dcvs.prop 1
 
     if [ -f /sys/devices/soc0/hw_platform ]; then
         hw_platform=`cat /sys/devices/soc0/hw_platform`
@@ -4999,6 +4826,25 @@ case "$target" in
         platform_subtype_id=`cat /sys/devices/soc0/platform_subtype_id`
     fi
 
+<<<<<<< HEAD
+=======
+    case "$hw_platform" in
+        "MTP" | "Surf" | "RCM" )
+            # Start Host based Touch processing
+            case "$platform_subtype_id" in
+                "0" | "1" | "2" | "3" | "4")
+                    start_hbtp
+                    ;;
+            esac
+        ;;
+        "HDK" )
+            if [ -d /sys/kernel/hbtpsensor ] ; then
+                start_hbtp
+            fi
+        ;;
+    esac
+
+>>>>>>> 238665f... mido: Update boot scripts from LA.UM.9.6.2.r1-02500-89xx.0
     echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
     configure_memory_parameters
     target_type=`getprop ro.hardware.type`
@@ -5194,27 +5040,32 @@ case "$target" in
 
 	#Setting the min supported frequencies
 	echo 1113600 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-	echo 1113600 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-	echo 1113600 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
-        echo 1113600 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
         echo 1171200 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq
-        echo 1171200 > /sys/devices/system/cpu/cpu5/cpufreq/scaling_min_freq
-        echo 1171200 > /sys/devices/system/cpu/cpu6/cpufreq/scaling_min_freq
-        echo 1171200 > /sys/devices/system/cpu/cpu7/cpufreq/scaling_min_freq
+	echo 940800000  > /sys/class/devfreq/soc\:qcom,cpu0-cpu-l3-lat/min_freq
+	echo 940800000  > /sys/class/devfreq/soc\:qcom,cpu4-cpu-l3-lat/min_freq
+	echo 1651200000 > /sys/class/devfreq/soc\:qcom,cpu0-cpu-l3-lat/max_freq
+	echo 1651200000 > /sys/class/devfreq/soc\:qcom,cpu4-cpu-l3-lat/max_freq
         #setting min gpu freq to 392  MHz
         echo 4 > /sys/class/kgsl/kgsl-3d0/min_pwrlevel
         if [ $feature_id == 0 ]; then
-                echo "feature_id is 0 for SA8185P"
+                echo "feature_id is 0 for SA8195AA"
 
+                #setting max cpu freq to 2.496GHz
+                echo 2496000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
                 #setting max gpu freq to 530 MHz
                 echo 3 > /sys/class/kgsl/kgsl-3d0/max_pwrlevel
                 echo {class:ddr, res:capped, val: 1804} > /sys/kernel/debug/aop_send_message
-        elif [ $feature_id == 1 ]; then
-                echo "feature_id is 1 for SA8195P"
+        elif [ $feature_id == 1 ] || [ $feature_id == 2 ]; then
+                echo "feature_id is 1 for external SA8195AB"
+                echo "feature_id is 2 for internal SA8195AB"
 
+                #setting max cpu freq to 2.496GHz
+                echo 2496000 > /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq
                 #setting max gpu freq to 670 MHz
                 echo 0 > /sys/class/kgsl/kgsl-3d0/max_pwrlevel
                 echo {class:ddr, res:capped, val: 2092} > /sys/kernel/debug/aop_send_message
+        elif [ $feature_id == 3 ]; then
+                echo "feature_id is 3 for external SA8195AC"
         else
                 echo "unknown feature_id value" $feature_id
         fi
@@ -5276,7 +5127,7 @@ case "$target" in
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy0/scaling_governor
 	echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/down_rate_limit_us
 	echo 0 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/up_rate_limit_us
-        if [ $rev == "2.0" ] || [ $rev == "2.1"]; then
+        if [ $rev == "2.0" ] || [ $rev == "2.1" ]; then
 		echo 1248000 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
 	else
 		echo 1228800 > /sys/devices/system/cpu/cpufreq/policy0/schedutil/hispeed_freq
@@ -5299,7 +5150,7 @@ case "$target" in
 	echo "schedutil" > /sys/devices/system/cpu/cpufreq/policy7/scaling_governor
 	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/down_rate_limit_us
 	echo 0 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/up_rate_limit_us
-        if [ $rev == "2.0" ] || [ $rev == "2.1"]; then
+        if [ $rev == "2.0" ] || [ $rev == "2.1" ]; then
 		echo 1632000 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
 	else
 		echo 1612800 > /sys/devices/system/cpu/cpufreq/policy7/schedutil/hispeed_freq
@@ -5382,55 +5233,11 @@ case "$target" in
 		echo 40 > $npullccbw/polling_interval
 		echo 0 > /sys/devices/virtual/npu/msm_npu/pwr
 	    done
-	    #Enable mem_latency governor for L3 scaling
-	    for memlat in $device/*qcom,devfreq-l3/*cpu*-lat/devfreq/*cpu*-lat
-	    do
-		echo "mem_latency" > $memlat/governor
-		echo 8 > $memlat/polling_interval
-		echo 400 > $memlat/mem_latency/ratio_ceil
-	    done
-
-	    #Enable cdspl3 governor for L3 cdsp nodes
-	    for l3cdsp in $device/*qcom,devfreq-l3/*cdsp-l3-lat/devfreq/*cdsp-l3-lat
-	    do
-                echo "cdspl3" > $l3cdsp/governor
-	    done
-
-	    #Enable mem_latency governor for LLCC and DDR scaling
-	    for memlat in $device/*cpu*-lat/devfreq/*cpu*-lat
-	    do
-		echo "mem_latency" > $memlat/governor
-		echo 8 > $memlat/polling_interval
-		echo 400 > $memlat/mem_latency/ratio_ceil
-	    done
-
-	    #Enable compute governor for gold latfloor
-	    for latfloor in $device/*cpu-ddr-latfloor*/devfreq/*cpu-ddr-latfloor*
-	    do
-		echo "compute" > $latfloor/governor
-		echo 8 > $latfloor/polling_interval
-	    done
-
-	    #Gold L3 ratio ceil
-	    for l3gold in $device/*qcom,devfreq-l3/*cpu4-cpu-l3-lat/devfreq/*cpu4-cpu-l3-lat
-	    do
-		echo 4000 > $l3gold/mem_latency/ratio_ceil
-	    done
-
-	    #Prime L3 ratio ceil
-	    for l3prime in $device/*qcom,devfreq-l3/*cpu7-cpu-l3-lat/devfreq/*cpu7-cpu-l3-lat
-	    do
-		echo 20000 > $l3prime/mem_latency/ratio_ceil
-	    done
-
-	    #Enable mem_latency governor for qoslat
-	    for qoslat in $device/*qoslat/devfreq/*qoslat
-	    do
-		echo "mem_latency" > $qoslat/governor
-		echo 10 > $qoslat/polling_interval
-		echo 50 > $qoslat/mem_latency/ratio_ceil
-	    done
 	done
+        # memlat specific settings are moved to seperate file under
+        # device/target specific folder
+        setprop vendor.dcvs.prop 0
+	setprop vendor.dcvs.prop 1
     echo N > /sys/module/lpm_levels/parameters/sleep_disabled
     configure_memory_parameters
     ;;
@@ -5710,7 +5517,7 @@ case "$target" in
         start mpdecision
         echo 512 > /sys/block/mmcblk0/bdi/read_ahead_kb
     ;;
-    "msm8909" | "msm8916" | "msm8937" | "msm8952" | "msm8953" | "msm8994" | "msm8992" | "msm8996" | "msm8998" | "sdm660" | "apq8098_latv" | "sdm845" | "sdm710" | "qcs605" |"msmnile" | "sdmshrike" |"msmsteppe" | "sm6150" | "kona" | "lito" | "trinket" | "atoll" | "bengal" )
+    "msm8909" | "msm8916" | "msm8937" | "msm8952" | "msm8953" | "msm8994" | "msm8992" | "msm8996" | "msm8998" | "sdm660" | "apq8098_latv" | "sdm845" | "sdm710" | "msmnile" | "msmsteppe" | "sm6150" | "kona" | "lito" | "trinket" | "atoll" | "bengal" | "sdmshrike")
         setprop vendor.post_boot.parsed 1
     ;;
     "apq8084")
@@ -5786,7 +5593,6 @@ case "$target" in
         echo 5120 > /proc/sys/vm/min_free_kbytes
      ;;
 esac
-
 # Let kernel know our image version/variant/crm_version
 if [ -f /sys/devices/soc0/select_image ]; then
     image_version="10:"
