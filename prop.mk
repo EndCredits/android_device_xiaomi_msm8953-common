@@ -2,6 +2,11 @@
 # system.prop for msm8953-common
 #
 
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+dalvik.vm.dex2oat-filter=speed \
+dalvik.vm.image-dex2oat-filter=speed
+
 # Audio
 PRODUCT_PROPERTY_OVERRIDES += \
 af.fast_track_multiplier=2 \
@@ -9,10 +14,6 @@ audio.deep_buffer.media=true \
 audio.offload.disable=true \
 audio.offload.min.duration.secs=30 \
 audio.offload.video=true \
-persist.audio.dirac.speaker=true \
-persist.vendor.audio.fluence.speaker=true \
-persist.vendor.audio.fluence.voicecall=true \
-persist.vendor.audio.fluence.voicerec=true \
 ro.config.media_vol_steps=25 \
 ro.config.vc_call_vol_steps=7 \
 persist.vendor.btstack.enable.splita2dp=false \
@@ -28,8 +29,6 @@ vendor.audio.playback.mch.downsample=true \
 vendor.audio.pp.asphere.enabled=false \
 vendor.audio.safx.pbe.enabled=true \
 vendor.audio.tunnel.encode=false \
-vendor.audio.dolby.ds2.enabled=true \
-vendor.audio.dolby.ds2.hardbypass=false \
 vendor.audio.use.sw.alac.decoder=true \
 vendor.audio.use.sw.ape.decoder=true \
 vendor.audio_hal.period_size=192 \
@@ -56,7 +55,7 @@ media.camera.ts.monotonic=1 \
 persist.camera.gyro.disable=0 \
 persist.camera.isp.clock.optmz=0 \
 persist.camera.stats.test=5 \
-persist.vendor.qti.telephony.vt_cam_interface=1 \
+persist.vendor.qti.telephony.vt_cam_interface=2 \
 vidc.enc.dcvs.extra-buff-count=2
 
 # Cne/Dpm
@@ -68,27 +67,18 @@ persist.dpm.feature=1
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.debug.coresight.config=stm-events
 
-# Dalvik
-PRODUCT_PROPERTY_OVERRIDES += \
-dalvik.vm.dex2oat-filter=speed \
-dalvik.vm.image-dex2oat-filter=speed \
-dalvik.vm.heapstartsize=16m \
-dalvik.vm.heapgrowthlimit=256m \
-dalvik.vm.heapsize=512m \
-dalvik.vm.heaptargetutilization=0.75 \
-dalvik.vm.heapminfree=4m \
-dalvik.vm.heapmaxfree=8m \
-ro.sys.fw.dex2oat_thread_count=8
-
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
 debug.egl.hw=0 \
 debug.enable.sglscale=1 \
 debug.gralloc.enable_fb_ubwc=1 \
 debug.mdpcomp.logs=0 \
+debug.sdm.support_writeback=0 \
+debug.sf.disable_backpressure=1 \
+debug.sf.enable_gl_backpressure=1 \
 debug.sf.enable_hwc_vds=1 \
 debug.sf.hw=0 \
-debug.sf.latch_unsignaled=0 \
+debug.sf.latch_unsignaled=1 \
 debug.cpurend.vsync=false \
 debug.sf.recomputecrop=0 \
 dev.pm.dyn_samplingrate=1 \
@@ -98,25 +88,13 @@ persist.hwc.enable_vds=1 \
 persist.hwc.mdpcomp.enable=true \
 ro.opengles.version=196610 \
 ro.qualcomm.cabl=0 \
-ro.sf.lcd_density=480 \
 ro.vendor.display.cabl=2 \
 sdm.debug.disable_skip_validate=1 \
 vendor.display.disable_skip_validate=1 \
 vendor.display.enable_default_color_mode=1 \
-vendor.gralloc.enable_fb_ubwc=1
-
-# SurfaceFlinger
-ro.surface_flinger.protected_contents=true
-ro.surface_flinger.use_smart_90_for_video=true
-ro.surface_flinger.set_display_power_timer_ms=10000
-ro.surface_flinger.set_touch_timer_ms=5000
-ro.surface_flinger.set_idle_timer_ms=9000
-
-# Graphics
-debug.sf.early_phase_offset_ns=1500000
-debug.sf.early_app_phase_offset_ns=1500000
-debug.sf.early_gl_phase_offset_ns=3000000
-debug.sf.early_gl_app_phase_offset_ns=15000000
+vendor.gralloc.enable_fb_ubwc=1 \
+vendor.video.disable.ubwc=1 \
+ro.sf.lcd_density=420
 
 # DRM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -143,6 +121,7 @@ ro.gps.agps_provider=1
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
 av.debug.disable.pers.cache=1 \
+debug.sf.enable_hwc_vds=1 \
 media.aac_51_output_enabled=true \
 media.msm8956hw=0 \
 media.stagefright.audio.sink=280 \
@@ -156,6 +135,9 @@ vendor.vidc.disable.split.mode=1 \
 vendor.vidc.enc.disable.pq=true \
 vendor.vidc.enc.disable_bframes=1 \
 vendor.video.disable.ubwc=1
+vendor.display.enable_default_color_mode=1 \
+vendor.gralloc.enable_fb_ubwc=1 \
+vendor.video.disable.ubwc=1
 
 # Memory optimizations
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -163,6 +145,7 @@ ro.vendor.qti.sys.fw.bservice_enable=true
 
 # Perf
 PRODUCT_PROPERTY_OVERRIDES += \
+ro.sys.fw.dex2oat_thread_count=8 \
 ro.vendor.extension_library=libqti-perfd-client.so
 
 # Netmgrd
@@ -183,6 +166,10 @@ persist.rild.nitz_short_ons_1="" \
 persist.rild.nitz_short_ons_2="" \
 persist.rild.nitz_short_ons_3=""
 
+# Property to enable display default color mode
+PRODUCT_PROPERTY_OVERRIDES += \
+vendor.display.enable_default_color_mode=1
+
 # Radio
 PRODUCT_PROPERTY_OVERRIDES += \
 DEVICE_PROVISIONED=1 \
@@ -191,22 +178,29 @@ persist.dbg.vt_avail_ovr=1 \
 persist.dbg.wfc_avail_ovr=1 \
 persist.vendor.radio.apm_sim_not_pwdn=1 \
 persist.radio.multisim.config=dsds \
+persist.radio.VT_ENABLE=1 \
+persist.radio.volte.dan_support=true \
+persist.sys.cust.lte_config=true \
 persist.vendor.radio.custom_ecc=1 \
 persist.vendor.radio.jbims=1 \
 persist.vendor.radio.rat_on=combine \
 persist.vendor.radio.sib16_support=1 \
 persist.vendor.data.iwlan.enable=true \
+persist.dbg.ims_volte_enable=1 \
+persist.data.iwlan=1 \
+persist.data.iwlan.ipsec.ap=1 \
 ril.subscription.types=NV,RUIM \
 rild.libargs=-d/dev/smd0 \
 rild.libpath=/vendor/lib64/libril-qc-qmi-1.so \
+ro.telephony.iwlan_operation_mode=legacy \
 ro.telephony.call_ring.multiple=false \
 ro.telephony.default_network=22,20 \
 service.qti.ims.enabled=1
 
 # Time Services
 PRODUCT_PROPERTY_OVERRIDES += \
-persist.delta_time.enable=true \
-persist.timed.enable=true
+persist.timed.enable=true \
+persist.delta_time.enable=true
 
 # Tcp
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -219,13 +213,6 @@ sys.use_fifo_ui=1
 # Usb
 PRODUCT_PROPERTY_OVERRIDES += \
 persist.vendor.usb.config.extra=none
-
-# USB debugging
-PRODUCT_PROPERTY_OVERRIDES += \
-persist.sys.usb.config=mtp,adb \
-ro.adb.secure=0 \
-ro.secure=0 \
-ro.debuggable=1
 
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
