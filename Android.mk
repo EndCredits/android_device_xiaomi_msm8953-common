@@ -16,7 +16,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter mido tiffany tissot,$(TARGET_DEVICE)),)
+ifneq ($(filter mido tissot tiffany,$(TARGET_DEVICE)),)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
@@ -26,6 +26,9 @@ LOCAL_MODULE := wifi_symlinks
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := FAKE
 LOCAL_MODULE_SUFFIX := -timestamp
+
+LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+LOCAL_ADDITIONAL_DEPENDENCIES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 include $(BUILD_SYSTEM)/base_rules.mk
 
