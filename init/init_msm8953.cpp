@@ -42,7 +42,6 @@
 #include "property_service.h"
 
 using android::base::GetProperty;
-using std::string;
 
 string heapstartsize, heapgrowthlimit, heapsize,
        heapminfree, heapmaxfree, heaptargetutilization;
@@ -55,6 +54,17 @@ void property_override(string prop, string value)
         __system_property_update(pi, value.c_str(), value.size());
     else
         __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
+}
+
+void property_override(char const prop[], char const value[], bool add = true)
+{
+    auto pi = (prop_info *) __system_property_find(prop);
+
+    if (pi != nullptr) {
+        __system_property_update(pi, value, strlen(value));
+    } else if (add) {
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+    }
 }
 
 void check_device()
