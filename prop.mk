@@ -45,6 +45,10 @@ qcom.bluetooth.soc=smd \
 ro.bluetooth.hfp.ver=1.7 \
 ro.qualcomm.bt.hci_transport=smd
 
+# BPF
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.kernel.ebpf.supported=true
+
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
 camera.display.lmax=1280x720 \
@@ -73,9 +77,6 @@ debug.egl.hw=0 \
 debug.enable.sglscale=1 \
 debug.gralloc.enable_fb_ubwc=1 \
 debug.mdpcomp.logs=0 \
-debug.sdm.support_writeback=0 \
-debug.sf.disable_backpressure=1 \
-debug.sf.enable_gl_backpressure=1 \
 debug.sf.enable_hwc_vds=1 \
 debug.sf.hw=0 \
 debug.sf.latch_unsignaled=1 \
@@ -93,7 +94,6 @@ sdm.debug.disable_skip_validate=1 \
 vendor.display.disable_skip_validate=1 \
 vendor.display.enable_default_color_mode=1 \
 vendor.gralloc.enable_fb_ubwc=1 \
-vendor.video.disable.ubwc=1 \
 ro.sf.lcd_density=420
 
 # DRM
