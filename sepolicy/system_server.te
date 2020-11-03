@@ -7,4 +7,4 @@ allow system_server userspace_reboot_exported_prop:file { getattr open read };
 r_dir_file(system_server, idc_file);
 r_dir_file(system_server, keylayout_file);
 # Cameras
-get_prop(system_server, persist_camera_prop)
+get_prop(system_server, vendor_persist_camera_prop)
