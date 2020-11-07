@@ -440,3 +440,8 @@ PRODUCT_BOOT_JARS += \
 # Curl
 PRODUCT_PACKAGES += \
     libcurl
+
+# Device mapper verity
+PRODUCT_SYSTEM_VERITY_PARTITION=/dev/block/bootdevice/by-name/system
+PRODUCT_VENDOR_VERITY_PARTITION=/dev/block/bootdevice/by-name/cust
+$(call inherit-product, build/target/product/verity.mk)
