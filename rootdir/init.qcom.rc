@@ -683,3 +683,19 @@ on property:dev.bootcomplete=1
  # Backlight dimmer
     chown system system /sys/module/mdss_fb/parameters/backlight_dimmer
     chmod 0660 /sys/module/mdss_fb/parameters/backlight_dimmer
+# logcat
+service logger /system/bin/logcat -b all -D -f /cache/boot_log.txt
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+on post-fs-data
+    # Clear existing log and start the service
+    rm /cache/boot_log.txt
+    start logger
+
+on property:sys.boot_completed=1
+    # Stop the logger service
+    stop logger
