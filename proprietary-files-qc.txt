@@ -788,9 +788,9 @@ vendor/bin/thermal-engine
 -vendor/lib64/libthermalclient.so
 vendor/lib64/libthermalioctl.so
 
-# Time services - from LA.UM.8.6.2.r1-06600-89xx.0
--vendor/app/TimeService/TimeService.apk|4a37afd1395758d946580af184a738e3c657b1e2
-vendor/bin/time_daemon|e23ee23d5bdc059273c58dac866cde7b090c764c
+# Time services - from Daisy QKQ1.191002.002 V11.0.5.0.QDLMIXM
+-vendor/app/TimeService/TimeService.apk|27f9b81621c446baa8c37581d9bfbca2fd67b496
+vendor/bin/time_daemon|75b8a6a14cfb4424499ccb2bf1cad011df295d0e
 vendor/etc/init/init.time_daemon.rc|b253ca2a498757e14e1d7a051bf504ae09218f51
 -vendor/lib/libtime_genoff.so|b158d87db74d2d7f239b79cfc60b568cd1d959d9
 -vendor/lib64/libtime_genoff.so|216cbb72e22a0ca76d766dc0b84055c5b31e0a4c
