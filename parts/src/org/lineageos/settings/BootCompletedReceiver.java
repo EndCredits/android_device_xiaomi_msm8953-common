@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings;
+package org.android.settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import org.lineageos.settings.dirac.DiracUtils;
+import org.android.settings.dirac.DiracUtils;
 
 public class BootCompletedReceiver extends BroadcastReceiver {
 
