@@ -445,11 +445,7 @@ vendor/lib64/libmm-color-convertor.so|d3539eb5a6a986f8ba81bac9cbf7b34872b12f1a
 vendor/lib/libwms.so|84dd1579d1392f400fc68ffdf3545fdb058d04d7
 vendor/lib64/libwms.so|ed3cc676c0951a462e81135159c53e4c79ed2bbd
 
-<<<<<<< HEAD
-# Perf - from daisy
-=======
 # Perf - from Daisy QKQ1.191002.002 V11.0.5.0.QDLMIXM
->>>>>>> 770d85f (msm8953-common: Switch to source built vendor.qti.hardware.perf@2.0)
 vendor/bin/energy-awareness|def07e366347c7f0a7778b748acb49557ab21d2a
 vendor/bin/hw/vendor.qti.hardware.perf@2.0-service|5c2593e17b8dac6e4e660478b419bf367d6c5c40
 vendor/bin/msm_irqbalance|b5e55b4b0934b65b7dd5d2201f9a70f6f77a4e7c
