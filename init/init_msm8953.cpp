@@ -43,18 +43,12 @@
 
 using android::base::GetProperty;
 
-string heapstartsize, heapgrowthlimit, heapsize,
-       heapminfree, heapmaxfree, heaptargetutilization;
-
-void property_override(string prop, string value)
-{
-    auto pi = (prop_info*) __system_property_find(prop.c_str());
-
-    if (pi != nullptr)
-        __system_property_update(pi, value.c_str(), value.size());
-    else
-        __system_property_add(prop.c_str(), prop.size(), value.c_str(), value.size());
-}
+char const *heapstartsize;
+char const *heapgrowthlimit;
+char const *heapsize;
+char const *heapminfree;
+char const *heapmaxfree;
+char const *heaptargetutilization;
 
 void property_override(char const prop[], char const value[], bool add = true)
 {
